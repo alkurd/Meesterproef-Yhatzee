@@ -19,8 +19,11 @@ function verwerkActie()
         // Verwerkt het invullen van een score en bereidt het spel voor op de volgende ronde. 
         if(isset($_POST['kies_categorie'])){
             $categorie = $_POST['kies_categorie'];
-            $score = berekenScore($categorie, $_SESSION['game']['dobbelstenen']);
-            $_SESSION['game']['scores'][$categorie] = $score;
+
+            if($_SESSION['game']['scores'][$categorie] = null){
+                $score = berekenScore($categorie, $_SESSION['game']['dobbelstenen']);
+                $_SESSION['game']['scores'][$categorie] = $score;
+            }
 
             $_SESSION['game']['beurt'] = 0;
             $_SESSION['game']['ronde']++;

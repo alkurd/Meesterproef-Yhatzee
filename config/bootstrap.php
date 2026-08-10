@@ -14,4 +14,19 @@ require_once  __DIR__ . "/../src/Action.php"; // Nieuwe bestand toegevoegd.
 verwerkActie();
 
 initSpel();
+$categorieen = [
+    'ones'           => 'Enen', 
+    'twos'           => 'Tweeën', 
+    'threes'         => 'Drieën',
+    'fours'          => 'Vieren',
+    'fives'          => 'Vijven',
+    'sixes'          => 'Zessen',
+    'three_kind'     => 'Three of a Kind',
+    'four_kind'      => 'Four of a Kind',
+    'full_house'     => 'Full House',
+    'small_straight' => 'Kleine Straat',
+    'large_straight' => 'Grote Straat',
+    'yahtzee'        => 'Yahtzee',
+    'chance'         => 'Chance'
+];
 
