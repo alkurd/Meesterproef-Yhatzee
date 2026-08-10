@@ -8,3 +8,10 @@ if(session_status() === PHP_SESSION_NONE)
 require_once  __DIR__ . "/../src/Dice.php";
 require_once  __DIR__ . "/../src/Scoreboard.php";
 require_once  __DIR__ . "/../src/Game.php";
+require_once  __DIR__ . "/../src/Action.php"; // Nieuwe bestand toegevoegd.
+
+// Maak de index.php schoon de controllers in de te roepen bestand.
+verwerkActie();
+
+initSpel();
+
