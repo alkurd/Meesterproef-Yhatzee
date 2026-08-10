@@ -3,8 +3,7 @@
 function verwerkActie()
 {
     // De 'poortwachter' die controleert of er een knop is ingedrukt (en de pagina niet zomaar los geopend is).
-    if($_SERVER['REQUEST_METHOD'] === "POST")
-    {
+    if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {    
         // Regelt het opnieuw rollen van de dobbelstenen. 
         if(isset($_POST['gooi'])){
             verWerkGooi();
@@ -20,12 +19,13 @@ function verwerkActie()
         if(isset($_POST['kies_categorie'])){
             $categorie = $_POST['kies_categorie'];
 
-            if($_SESSION['game']['scores'][$categorie] = null){
+            if($_SESSION['game']['scores'][$categorie] === null){
                 $score = berekenScore($categorie, $_SESSION['game']['dobbelstenen']);
                 $_SESSION['game']['scores'][$categorie] = $score;
             }
 
             $_SESSION['game']['beurt'] = 0;
+            $_SESSION["game"]["melding"] = "";
             $_SESSION['game']['ronde']++;
             $_SESSION['game']['vasthouden'] = [false, false, false, false, false];
 

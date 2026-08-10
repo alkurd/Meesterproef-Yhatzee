@@ -3,6 +3,7 @@
 function resetSpel(){
     $_SESSION = [];
     $_SESSION["game"] = [
+    "melding"=> "",
     'ronde' => 1,
     'beurt' => 0,
     'dobbelstenen' => [1, 1, 1, 1, 1],
@@ -41,11 +42,17 @@ function verWerkGooi(){
     }else{
         return "je mag niet meer dan 3 keer gooien! Kies een categorie op je scorekaart.";
     }
+    $_SESSION["game"]["melding"] = ""; // melding leeg maken
 }
 
 // $index geeft aan welke dobbelsteen je aanklikt (0 t/m 4).
 function wisselVasthouden($index)
 {
+    if($_SESSION["game"]["beurt"] === 0){
+        $_SESSION["game"]["melding"] = "Je moet eerst dobbelstenen gooien";
+        return;
+    }
+    $_SESSION["game"]["melding"] = ""; // De melding leeg maken
     // isset() checkt voor de zekerheid of die dobbelsteen wel echt bestaat.
     if(isset($_SESSION['game']["vasthouden"][$index]))
     {
