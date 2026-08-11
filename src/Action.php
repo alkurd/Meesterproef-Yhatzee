@@ -30,6 +30,13 @@ function verwerkActie()
             $_SESSION['game']['vasthouden'] = [false, false, false, false, false];
 
         }
+        if(isset($_POST['start-met-namen']))
+        {
+            $nieuweSpelers = $_POST['speler-naam'] ?? ['Speler 1', 'Speler 2'];
+            unset($_SESSION['game']);
+            $_SESSION['game'] = newGame($nieuweSpelers);
+        }
+
         // Wist de sessie en start een gloednieuw spel.
         if(isset($_POST['reset'])){
             resetSpel();

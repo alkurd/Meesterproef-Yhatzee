@@ -1,33 +1,17 @@
 <?php
 //Wist alle oude gegevens en start een nieuw Yahtzee-spel vanaf de allereerste stand
 function resetSpel(){
-    $_SESSION = [];
-    $_SESSION["game"] = [
-    "melding"=> "",
-    'ronde' => 1,
-    'beurt' => 0,
-    'dobbelstenen' => [1, 1, 1, 1, 1],
-    'vasthouden' => [false, false, false, false, false],
-    'scores' => [
-        'ones' => null,
-        'twos' => null,
-        'threes' => null,
-        'fours' => null,
-        'fives' => null,
-        'sixes' => null,
-        'three_kind' => null,
-        'four_kind' => null,
-        'full_house' => null,
-        'small_straight' => null,
-        'large_straight' => null,
-        'chance' => null,
-        'yahtzee' => null
-    ]
-];
+    $actieveSpelers = $_SESSION['gmae']['speler'] ?? ['speler 1'];
+    unset($_SESSION['game']); // unset zorgt ervoor om dew sessie helmaal leeg gooit
+    $_SESSION['game'] = newGame($actieveSpelers);
 }
+
 // Zorgt ervoor dat er altijd een spel klaar staat
-function initSpel(){
-    if(!isset($_SESSION["game"])){return resetSpel();}
+function initSpel($speler =['speler 1']){
+    if(!isset($_SESSION["game"]))
+    {
+        $_SESSION['game'] = newGame($speler);
+    }
 }
 
 // Voert een worp uit als de speler nog worpen over heeft (max. 3), anders geeft hij een waarschuwing.

@@ -17,6 +17,7 @@
         <label>Beurt: <?= $_SESSION['game']['beurt'] ?></label>
     </div>
     <?php 
+    require_once __DIR__.'/../templates/NieuwePlayer.php';
     require_once __DIR__.'/../templates/dice_form.php';
     require_once __DIR__.'/../templates/scoreboard.php';
     ?>

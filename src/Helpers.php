@@ -21,9 +21,9 @@ function newGame($speler = ['speler 1'])
     ];
 
     // Kent aan de index (stoelnummer) van elke speler een eigen lege scorekaart toe
-    $score = [];
+    $scores = [];
     foreach($speler as $index => $naam){
-        $score[$index] = $legeCat;
+        $scores[$index] = $legeCat;
     }
 
     return [
@@ -34,6 +34,6 @@ function newGame($speler = ['speler 1'])
         'vasthouden'    => [false, false, false, false, false],
         'actieveSpeler' => 0, // Index van de speler die aan de beurt is
         'speler'        => $speler,
-        'score'         => $score
+        'scores'         => $scores
     ];
 }
