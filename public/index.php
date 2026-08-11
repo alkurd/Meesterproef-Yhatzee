@@ -8,7 +8,7 @@
     <title>Yahtzee</title>
 </head>
 <body>
-    // wordt gebruikt om de pagina overzigtelijk te houden
+    <!--  wordt gebruikt om de pagina overzigtelijk te houden -->
     <?php require_once __DIR__.'/../templates/Errors.php';?>  
     <h1>Yahtzee</h1>
     <!-- header -->
@@ -20,9 +20,9 @@
     require_once __DIR__.'/../templates/dice_form.php';
     require_once __DIR__.'/../templates/scoreboard.php';
     ?>
-    // De reset knop
+    <!-- De reset knop -->
     <form action="index.php" method="POST" class="reset-spel">
-        <button name="reset" type="submit">Nieuwe Spel</button> // Wrdt de actie geroeppen door name te geven
+        <button name="reset" type="submit">Nieuwe Spel</button> <!--  Wrdt de actie geroeppen door name te geven -->
     </form>
 
     
