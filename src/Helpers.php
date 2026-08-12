@@ -3,13 +3,6 @@
 // Start een nieuw spel (standaard 1 speler als er niks wordt meegegeven)
 function newGame(array $spelers = ['speler 1'])
 {
-    // if(is_int($spelers)){
-    //     $aantal = $spelers;
-    //     $spelers = [];
-    //     for($i = 0; $i < $aantal; $i++){
-    //         $spelers[] = 'speler'.$i;
-    //     }
-    // }
     // Blanco scorekaart-sjabloon
     $legeCat = [
         'ones' => null,

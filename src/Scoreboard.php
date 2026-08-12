@@ -56,3 +56,12 @@ function berekenScore($categorie, $dobbelStenen)
         default: return 0;
     }
 }
+function berekenBovensteTotaal($spelerIndex){
+
+}
+function berekenBonus($spelerIndex){
+
+}
+function berekenEindScore($spelerIndex){
+    
+}
