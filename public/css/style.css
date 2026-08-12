@@ -1,83 +1,215 @@
-/* De css is door AI gemaakt */
-* {
+/* ==========================================
+   YAHTZEE - COMPLETE STYLESHEET
+   ========================================== */
+
+/* Modern Kleurenpalet & Variabelen */
+:root {
+    --primary-color: #2c3e50;      /* Donkerblauw / Header */
+    --accent-color: #3498db;       /* Blauw / Knoppen */
+    --accent-hover: #2980b9;
+    --success-color: #27ae60;      /* Groen / Acties & Gooi */
+    --success-hover: #219150;
+    --warning-color: #e67e22;      /* Oranje / Vastgehouden steen */
+    --warning-dark: #d35400;
+    --danger-color: #e74c3c;       /* Rood / Reset & Fouten */
+    --bg-gradient: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --text-color: #2d3748;
+    --text-muted: #718096;
+    --border-color: #e2e8f0;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.15);
+    --shadow-card: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Reset & Basis */
+*, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f7f6;
-    color: #333333;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    color: var(--text-color);
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    padding: 30px 15px;
     min-height: 100vh;
 }
 
+/* Hoofdtitel */
 h1 {
-    color: #2c3e50;
-    margin-bottom: 15px;
-    font-size: 2.5rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-size: 3rem;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
+/* Spel Status Info Bar */
 .spel-info {
-    background-color: #ffffff;
-    padding: 12px 25px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    background: var(--card-bg);
+    padding: 14px 30px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
     display: flex;
-    gap: 30px;
+    gap: 35px;
     margin-bottom: 25px;
+    backdrop-filter: blur(8px);
 }
 
 .spel-info label {
     font-size: 1.1rem;
-    font-weight: 600;
-    color: #2c3e50;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.dobbel-veld {
-    background-color: #ffffff;
+/* Instellingen & Speler Setup Kaart (Nieuwe Player Form) */
+.instel-kaart,
+form[action="index.php"]:has(.btn-instel),
+form[action="index.php"]:has(.number-players),
+form[action="index.php"]:has(input[name="speler-naam[]"]) {
+    background: var(--card-bg);
     padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
+    margin-bottom: 25px;
+    width: 100%;
+    max-width: 480px;
+    text-align: center;
+}
+
+.instel-kaart label,
+form label {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Input velden en Selects */
+.instel-input,
+.instel-select,
+.number-players,
+input[type="text"] {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    color: var(--text-color);
+    background-color: #ffffff;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.instel-input:focus,
+.instel-select:focus,
+.number-players:focus,
+input[type="text"]:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+/* Knoppen Algemeen */
+button, 
+.btn-instel {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Accent Knop (Opslaan / Toevoegen) */
+.btn-instel,
+button[name="multi-player"],
+button[name="update_speler"] {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.btn-instel:hover,
+button[name="multi-player"]:hover,
+button[name="update_speler"]:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+/* Start Knop */
+button[name="start-met-namen"] {
+    background-color: var(--success-color);
+    color: white;
+    width: 100%;
+    margin-top: 10px;
+}
+
+button[name="start-met-namen"]:hover {
+    background-color: var(--success-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+}
+
+/* Dobbelsteen Veld */
+.dobbel-veld {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
     margin-bottom: 30px;
     width: 100%;
-    max-width: 500px;
+    max-width: 520px;
 }
 
 .dobbel-veld form {
     display: flex;
     justify-content: center;
-    gap: 12px;
+    gap: 15px;
     flex-wrap: wrap;
 }
 
+/* Dobbelstenen Styling */
 .dobbelsteen {
-    width: 60px;
-    height: 60px;
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #2c3e50;
-    background-color: #ffffff;
+    width: 65px;
+    height: 65px;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    background: #ffffff;
     border: 3px solid #cbd5e1;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 0 #cbd5e1;
+    transition: all 0.15s ease;
+    box-shadow: 0 5px 0 #cbd5e1, 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
 .dobbelsteen:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 0 #cbd5e1;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 0 #cbd5e1, 0 12px 18px rgba(0, 0, 0, 0.15);
 }
 
 .dobbelsteen:active {
@@ -85,39 +217,43 @@ h1 {
     box-shadow: 0 2px 0 #cbd5e1;
 }
 
+/* Vastgehouden Dobbelsteen */
 .dobbelsteen.vast {
-    background-color: #e67e22;
+    background-color: var(--warning-color);
     color: #ffffff;
-    border-color: #d35400;
-    box-shadow: 0 4px 0 #d35400;
+    border-color: var(--warning-dark);
+    box-shadow: 0 5px 0 var(--warning-dark);
 }
 
+.dobbelsteen.vast:hover {
+    box-shadow: 0 7px 0 var(--warning-dark);
+}
+
+/* Gooi Knop */
 button[name="gooi"] {
-    background-color: #27ae60;
+    background-color: var(--success-color);
     color: white;
-    font-size: 1.1rem;
-    font-weight: bold;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    box-shadow: 0 4px 6px rgba(39, 174, 96, 0.2);
+    font-size: 1.15rem;
+    padding: 14px 32px;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
 }
 
 button[name="gooi"]:hover {
-    background-color: #219150;
-    transform: translateY(-1px);
+    background-color: var(--success-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(39, 174, 96, 0.4);
 }
 
+/* Scorekaart Tabel */
 .score-kaart {
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
     overflow: hidden;
     width: 100%;
-    max-width: 500px;
-    margin-bottom: 25px;
+    max-width: 520px;
+    margin-bottom: 30px;
 }
 
 .score-table {
@@ -128,17 +264,17 @@ button[name="gooi"]:hover {
 
 .score-table th, 
 .score-table td {
-    padding: 12px 16px;
-    border-bottom: 1px solid #e2e8f0;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .score-table th {
-    background-color: #2c3e50;
-    color: white;
-    font-weight: 600;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    font-weight: 700;
     text-transform: uppercase;
     font-size: 0.85rem;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
 .score-table tr:last-child td {
@@ -146,77 +282,80 @@ button[name="gooi"]:hover {
 }
 
 .score-table tr:hover {
-    background-color: #f8fafc;
+    background-color: rgba(241, 245, 249, 0.8);
 }
 
+/* Categorie Kiezen Knop */
 button[name="kies_categorie"] {
-    background-color: #3498db;
+    background-color: var(--accent-color);
     color: white;
-    border: none;
-    padding: 6px 14px;
+    padding: 8px 16px;
     border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+    font-size: 0.9rem;
 }
 
 button[name="kies_categorie"]:hover {
-    background-color: #2980b9;
+    background-color: var(--accent-hover);
 }
 
+/* Reset Spel Knop */
 .reset-spel button[name="reset"] {
     background-color: transparent;
-    color: #e74c3c;
-    border: 2px solid #e74c3c;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
+    color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    padding: 10px 24px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
     transition: all 0.2s ease;
 }
 
 .reset-spel button[name="reset"]:hover {
-    background-color: #e74c3c;
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
     color: white;
+    transform: translateY(-2px);
 }
 
+/* Foutmelding / Pop-up Overlay */
 .popup-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    animation: fadeIn 0.2s ease-in-out;
+    animation: fadeIn 0.25s ease-out;
 }
 
 .popup-box {
-    background-color: white;
-    padding: 25px 30px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: var(--radius-md);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     text-align: center;
-    max-width: 350px;
+    max-width: 380px;
     width: 90%;
-    border-top: 5px solid #e74c3c;
+    border-top: 6px solid var(--danger-color);
 }
 
 .popup-box h3 {
-    color: #e74c3c;
-    margin-bottom: 10px;
+    color: var(--danger-color);
+    margin-bottom: 12px;
+    font-size: 1.4rem;
 }
 
 .popup-box p {
-    color: #555;
+    color: var(--text-color);
     font-size: 1rem;
+    line-height: 1.5;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
 }
-

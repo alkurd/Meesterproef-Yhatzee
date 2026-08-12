@@ -30,11 +30,22 @@ function verwerkActie()
             $_SESSION['game']['vasthouden'] = [false, false, false, false, false];
 
         }
+        if(isset($_POST['multi-player'])){
+            $_SESSION['game']['instel_stap'] = 'aantal_kiezen';
+        }
+        if(isset($_POST['update_speler'])){
+            $_SESSION['game']['speler'] = (int)($_POST['aantalSpelers'] ??2);
+            $_SESSION['game']['instel_stap'] = 'namen_geven';
+        }
+
+
         if(isset($_POST['start-met-namen']))
         {
             $nieuweSpelers = $_POST['speler-naam'] ?? ['Speler 1', 'Speler 2'];
             unset($_SESSION['game']);
             $_SESSION['game'] = newGame($nieuweSpelers);
+            $_SESSION['game']['instel_stap'] = 'spel_bezig';
+
         }
 
         // Wist de sessie en start een gloednieuw spel.

@@ -13,7 +13,7 @@
         <tbody>
             <!-- Loopt door alle categorieën: $sleutel is de PHP-code (bijv. 'ones') en $naam is de nette tekst (bijv. 'Enen') -->
             <?php foreach($categorieen as $sleutel => $naam): 
-                $activeSpelers = $_SESSION['game']['activesplere'] ?? 0?>
+                $activeSpelers = $_SESSION['game']['activespler'] ?? 0?>
             <tr>
                 <!-- Toont de nette categorienaam -->
                 <td><?=$naam?></td>

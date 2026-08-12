@@ -1,7 +1,7 @@
 <?php
 //Wist alle oude gegevens en start een nieuw Yahtzee-spel vanaf de allereerste stand
 function resetSpel(){
-    $actieveSpelers = $_SESSION['gmae']['speler'] ?? ['speler 1'];
+    $actieveSpelers = $_SESSION['game']['speler'] ?? ['speler 1'];
     unset($_SESSION['game']); // unset zorgt ervoor om dew sessie helmaal leeg gooit
     $_SESSION['game'] = newGame($actieveSpelers);
 }
