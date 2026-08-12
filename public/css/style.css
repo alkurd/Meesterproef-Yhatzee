@@ -1,270 +1,210 @@
-/* ============================================================
-   YAHTZEE - PREMIUM ARCADE & BOARDGAME STYLESHEET
-   ============================================================ */
-
-/* 🎨 Kleurenpalet & Variabelen */
+/* ==========================================================================
+   1. VARIABLES & BASE STYLES
+   ========================================================================== */
 :root {
-    --bg-gradient: linear-gradient(135deg, #0d1b2a 0%, #1b263b 50%, #415a77 100%);
-    --card-bg: rgba(255, 255, 255, 0.96);
-    --card-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
-    
-    --primary: #1e293b;         /* Donker leisteen */
-    --accent: #6366f1;          /* Indigo / Acties */
-    --accent-hover: #4f46e5;
-    --success: #10b981;         /* Smaragdgroen / Gooi & Start */
-    --success-hover: #059669;
-    --warning: #f59e0b;         /* Goud/Oranje / Vastgehouden steen */
-    --warning-dark: #d97706;
-    --danger: #ef4444;          /* Rood / Reset */
-    --danger-hover: #dc2626;
-
-    --text-main: #0f172a;
-    --text-muted: #64748b;
-    --border-color: #e2e8f0;
-
-    --radius-sm: 8px;
-    --radius-md: 14px;
-    --radius-lg: 20px;
+    --bg-color: #1e3a2b;          /* Diepgroene bordspel-achtergrond */
+    --card-bg: #ffffff;
+    --text-color: #2c3e50;
+    --primary-color: #27ae60;     /* Actie-groen */
+    --primary-hover: #219150;
+    --accent-color: #e74c3c;      /* Accent-rood voor vastzetten/reset */
+    --accent-hover: #c0392b;
+    --disabled-color: #bdc3c7;
+    --border-radius: 12px;
+    --box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    --transition: all 0.2s ease-in-out;
 }
 
-/* 🔄 Reset & Basis */
-*, *::before, *::after {
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
 body {
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--bg-gradient);
-    background-attachment: fixed;
-    color: var(--text-main);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px 15px;
     min-height: 100vh;
+    padding: 20px;
 }
 
-/* 👑 Hoofdtitel */
 h1 {
     color: #ffffff;
-    font-size: 3.2rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    margin-bottom: 25px;
-    text-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), 0 0 20px rgba(99, 102, 241, 0.3);
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    text-align: center;
 }
 
-/* 📊 Spel Status Info Bar */
+/* ==========================================================================
+   2. SPEL INFO & HEADERS
+   ========================================================================== */
 .spel-info {
-    background: rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 16px 32px;
-    border-radius: var(--radius-md);
     display: flex;
-    gap: 30px;
-    margin-bottom: 30px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    gap: 15px;
+    margin-bottom: 25px;
 }
 
 .spel-info label {
-    font-size: 1.05rem;
-    font-weight: 700;
+    background: rgba(255, 255, 255, 0.2);
     color: #ffffff;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* ⚙️ Instellingen & Formulier Kaarten */
-.instel-kaart,
-form[action="index.php"]:has(.btn-instel),
-form[action="index.php"]:has(.number-players),
-form[action="index.php"]:has(input[name="speler-naam[]"]) {
-    background: var(--card-bg);
-    padding: 30px;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--card-shadow);
+/* ==========================================================================
+   3. INSTEL- EN SPELERFORMULIEREN
+   ========================================================================== */
+form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 18px;
-    margin-bottom: 30px;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+input[type="text"],
+.number-players {
+    padding: 10px 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: var(--transition);
+    width: 100%;
+    max-width: 250px;
+    text-align: center;
+}
+
+input[type="text"]:focus,
+.number-players:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.2);
+}
+
+/* Algemene Knoppen Styling */
+button {
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: white;
+    transition: var(--transition);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+button:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+button:disabled {
+    background-color: var(--disabled-color);
+    cursor: not-allowed;
+    opacity: 0.7;
+    box-shadow: none;
+}
+
+/* ==========================================================================
+   4. DOBBELVELD & DOBBELSTENEN
+   ========================================================================== */
+.dobbel-veld {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
     width: 100%;
     max-width: 500px;
 }
 
-.instel-kaart label,
-form label {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--primary);
-}
-
-/* ✏️ Input velden */
-.instel-input,
-.instel-select,
-.number-players,
-input[type="text"] {
-    width: 100%;
-    padding: 12px 18px;
-    border: 2px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-main);
-    background-color: #f8fafc;
-    outline: none;
-    transition: all 0.2s ease;
-}
-
-.instel-input:focus,
-.instel-select:focus,
-.number-players:focus,
-input[type="text"]:focus {
-    border-color: var(--accent);
-    background-color: #ffffff;
-    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
-}
-
-/* 🔘 Knoppen Algemeen */
-button, 
-.btn-instel {
-    font-family: inherit;
-    font-size: 1rem;
-    font-weight: 800;
-    padding: 12px 24px;
-    border: none;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-/* Accent Knoppen */
-.btn-instel,
-button[name="multi-player"],
-button[name="update_speler"] {
-    background-color: var(--accent);
-    color: #ffffff;
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-}
-
-.btn-instel:hover,
-button[name="multi-player"]:hover,
-button[name="update_speler"]:hover {
-    background-color: var(--accent-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(99, 102, 241, 0.4);
-}
-
-/* Start Knop */
-button[name="start-met-namen"] {
-    background-color: var(--success);
-    color: #ffffff;
-    width: 100%;
-    margin-top: 10px;
-    padding: 14px;
-    font-size: 1.1rem;
-    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
-}
-
-button[name="start-met-namen"]:hover {
-    background-color: var(--success-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
-}
-
-/* 🎲 Dobbelsteen Veld */
-.dobbel-veld {
-    background: var(--card-bg);
-    padding: 32px;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--card-shadow);
+.dobbel-veld form:first-child {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 25px;
-    margin-bottom: 35px;
-    width: 100%;
-    max-width: 580px;
-}
-
-.dobbel-veld form {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
+    flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
 }
 
-/* 3D Tactiele Dobbelstenen */
+/* De Dobbelsteen knop */
 .dobbelsteen {
-    width: 70px;
-    height: 70px;
-    font-size: 2.2rem;
-    font-weight: 900;
-    color: var(--primary);
-    background: linear-gradient(145deg, #ffffff, #f1f5f9);
-    border: 2px solid #cbd5e1;
-    border-radius: var(--radius-md);
+    width: 60px;
+    height: 60px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #2c3e50;
+    background: #f8f9fa;
+    border: 3px solid #dcdde1;
+    border-radius: 12px;
+    box-shadow: 0 5px 0 #bdc3c7, inset 0 0 8px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    transition: all 0.15s ease;
-    box-shadow: 0 6px 0 #94a3b8, 0 10px 20px rgba(0, 0, 0, 0.12);
+    transition: var(--transition);
 }
 
 .dobbelsteen:hover {
     transform: translateY(-3px);
-    box-shadow: 0 9px 0 #94a3b8, 0 14px 22px rgba(0, 0, 0, 0.15);
+    background: #ffffff;
 }
 
-.dobbelsteen:active {
-    transform: translateY(3px);
-    box-shadow: 0 3px 0 #94a3b8;
-}
-
-/* Vastgehouden Dobbelsteen (Amber Highlight) */
+/* Dobbelsteen wanneer hij is vastgezet (.vast) */
 .dobbelsteen.vast {
-    background: linear-gradient(145deg, #fef3c7, var(--warning));
-    color: #78350f;
-    border-color: var(--warning-dark);
-    box-shadow: 0 6px 0 var(--warning-dark), 0 0 15px rgba(245, 158, 11, 0.4);
+    background-color: var(--accent-color);
+    color: white;
+    border-color: #b22222;
+    box-shadow: 0 2px 0 #8b0000;
+    transform: translateY(3px);
 }
 
-.dobbelsteen.vast:hover {
-    box-shadow: 0 8px 0 var(--warning-dark), 0 0 20px rgba(245, 158, 11, 0.6);
-}
-
-/* Gooi Knop */
 button[name="gooi"] {
-    background-color: var(--success);
-    color: #ffffff;
-    font-size: 1.25rem;
-    padding: 16px 40px;
-    border-radius: var(--radius-md);
-    box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35);
+    font-size: 1.1rem;
+    padding: 12px 30px;
+    border-radius: 25px;
+    background-color: #2980b9;
 }
 
 button[name="gooi"]:hover {
-    background-color: var(--success-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 22px rgba(16, 185, 129, 0.45);
+    background-color: #3498db;
 }
 
-/* 📋 Scorekaart Tabel (Dynamisch & Flexibel) */
+/* ==========================================================================
+   5. SCOREKAART / TABEL
+   ========================================================================== */
 .score-kaart {
     background: var(--card-bg);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--card-shadow);
-    overflow-x: auto; /* Zorgt voor nette scrollbar op mobiel/veel spelers */
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
     width: 100%;
-    max-width: 900px;
-    margin-bottom: 35px;
+    max-width: 700px;
+    overflow-x: auto;
+    margin-bottom: 25px;
 }
 
 .score-table {
@@ -275,119 +215,97 @@ button[name="gooi"]:hover {
 
 .score-table th, 
 .score-table td {
-    padding: 14px 18px;
-    border-bottom: 1px solid var(--border-color);
-    font-size: 0.95rem;
-}
-
-/* Eerste kolom (Categorie) extra accentueren */
-.score-table th:first-child,
-.score-table td:first-child {
-    text-align: left;
-    font-weight: 700;
-    white-space: nowrap;
-    padding-left: 24px;
-    background-color: rgba(248, 250, 252, 0.5);
+    padding: 10px 12px;
+    border-bottom: 1px solid #e1e8ed;
 }
 
 .score-table th {
-    background-color: var(--primary);
-    color: #ffffff;
-    font-weight: 800;
+    background-color: #f4f6f7;
+    color: #34495e;
+    font-weight: 700;
     text-transform: uppercase;
     font-size: 0.85rem;
-    letter-spacing: 1.5px;
-    white-space: nowrap;
+    letter-spacing: 0.5px;
 }
 
-.score-table tr:hover td {
-    background-color: #f1f5f9;
+.score-table tr:hover {
+    background-color: #f8f9fa;
 }
 
-/* Categorie Kiezen Knop (Badge style) */
-button[name="kies_categorie"] {
-    background-color: var(--accent);
-    color: #ffffff;
-    padding: 8px 16px;
-    border-radius: 20px;
+.score-table td:first-child {
+    text-align: left;
+    font-weight: 600;
+}
+
+.score-table button {
+    padding: 5px 12px;
     font-size: 0.85rem;
-    white-space: nowrap;
-    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25);
 }
 
-button[name="kies_categorie"]:hover {
-    background-color: var(--accent-hover);
-    transform: scale(1.05);
-}
-
-button[name="kies_categorie"]:disabled,
-button:disabled {
-    background-color: #cbd5e1;
-    color: #94a3b8;
-    cursor: not-allowed;
-    box-shadow: none;
-    transform: none;
-}
-
-/* 🛑 Reset Spel Knop */
-.reset-spel button[name="reset"] {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(8px);
-    color: #ffffff;
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    padding: 12px 28px;
-    border-radius: var(--radius-md);
-    font-weight: 700;
-}
-
-.reset-spel button[name="reset"]:hover {
-    background-color: var(--danger);
-    border-color: var(--danger);
-    color: #ffffff;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(239, 68, 68, 0.4);
-}
-
-/* 🚨 Pop-up Overlay */
+/* ==========================================================================
+   6. POP-UP / ALERT OVERLAY
+   ========================================================================== */
 .popup-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(15, 23, 42, 0.8);
-    backdrop-filter: blur(6px);
+    background-color: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    animation: popIn 0.25s ease-out;
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.25s ease-out;
 }
 
 .popup-box {
-    background-color: #ffffff;
-    padding: 35px;
-    border-radius: var(--radius-lg);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    background: #ffffff;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     text-align: center;
-    max-width: 420px;
+    max-width: 400px;
     width: 90%;
-    border-top: 6px solid var(--danger);
+    animation: scaleUp 0.25s ease-out;
 }
 
 .popup-box h3 {
-    color: var(--danger);
-    margin-bottom: 12px;
+    color: var(--accent-color);
+    margin-bottom: 10px;
     font-size: 1.5rem;
 }
 
 .popup-box p {
-    color: var(--text-main);
+    color: #555;
     font-size: 1.05rem;
-    line-height: 1.6;
+    line-height: 1.4;
 }
 
-@keyframes popIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
+/* Animaties voor Pop-up */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* ==========================================================================
+   7. RESET SPEL KNOP
+   ========================================================================== */
+.reset-spel button {
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    color: #ffffff;
+    padding: 8px 20px;
+    border-radius: 20px;
+}
+
+.reset-spel button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: #ffffff;
 }

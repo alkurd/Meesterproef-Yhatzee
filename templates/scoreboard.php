@@ -37,7 +37,7 @@
                             <button type="submit" name="kies_categorie">Kies</button>
                         </form>
                     <?php else: ?>
-                        <button disabled>Kiez</button>
+                        <button disabled>-</button>
                     <?php endif; ?>
                 </td>
                 </tr>

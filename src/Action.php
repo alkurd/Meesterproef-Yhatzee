@@ -16,33 +16,30 @@ function verwerkActie()
         }
 
         // Verwerkt het invullen van een score en bereidt het spel voor op de volgende ronde. 
-        if (isset($_POST['kies_categorie'])) {
-            // 1. Haal de categorie op uit het verborgen veld
-            $categorie = $_POST['categorie']; 
-            $activeSpeler = $_SESSION['game']['actieveSpeler'];
+        if(isset($_POST['kies_categorie'])){
+            $categorie = $_POST['categorie'];
+            $activeSpelre = $_SESSION['game']['actieveSpeler'];
             $dobbelstenen = $_SESSION['game']['dobbelstenen'];
-            
-            // 2. Bereken en sla de score op
-            $score = berekenScore($categorie, $dobbelstenen);
-            $_SESSION['game']['scores'][$activeSpeler][$categorie] = $score;
 
-            // 3. Reset beurt en dobbelstenen
+            $score = berekenScore($categorie, $dobbelstenen);
+            $_SESSION['game']['scores'][$activeSpelre][$categorie] = $score;
+
+            $_SESSION['game']['vasthouden'] = [false, false, false, false, false];  
             $_SESSION['game']['beurt'] = 0;
-            $_SESSION['game']['vasthouden'] = [false, false, false, false, false];
-            
-            // 4. Ga naar de volgende speler
-            $activeSpeler++;
-            
-            // 5. Controleer of iedereen in deze ronde is geweest
-            $totalSpeler = count($_SESSION['game']['spelers']);
-            if ($activeSpeler >= $totalSpeler) {
-                $_SESSION['game']['ronde']++;
-                $activeSpeler = 0;
+
+            $activeSpelre ++;
+
+            $totalSpelre = count($_SESSION['game']['spelers']);
+            if($activeSpelre >= $totalSpelre ){
+            $_SESSION['game']['ronde']++;
+            $activeSpelre = 0;
             }
 
-            // 6. Sla de bijgewerkte actieve speler op in de sessie!
-            $_SESSION['game']['actieveSpeler'] = $activeSpeler;
-            $_SESSION['game']['melding'] = "";
+            $_SESSION['game']['actieveSpeler'] = $activeSpelre;
+            $_SESSION["game"]["melding"] = "";
+            
+            
+
         }
         if(isset($_POST['multi-player'])){
             $_SESSION['game']['instel_stap'] = 'aantal_kiezen';
