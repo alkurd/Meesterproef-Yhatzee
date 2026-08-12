@@ -34,15 +34,21 @@ function verwerkActie()
             $_SESSION['game']['instel_stap'] = 'aantal_kiezen';
         }
         if(isset($_POST['update_speler'])){
-            $_SESSION['game']['speler'] = (int)($_POST['aantalSpelers'] ??2);
+            $aantalSpelers = (int)($_POST['aantalSpelers'] ??2);
+            $tijdelijkNaam = [];
+            for($i = 1; $i <= $aantalSpelers; $i++){
+                $tijdelijkNaam[]= 'speler'.$i;
+            }
+            $_SESSION['game'] = newGame($tijdelijkNaam);
             $_SESSION['game']['instel_stap'] = 'namen_geven';
         }
 
 
         if(isset($_POST['start-met-namen']))
         {
+            
             $nieuweSpelers = $_POST['speler-naam'] ?? ['Speler 1', 'Speler 2'];
-            unset($_SESSION['game']);
+            
             $_SESSION['game'] = newGame($nieuweSpelers);
             $_SESSION['game']['instel_stap'] = 'spel_bezig';
 

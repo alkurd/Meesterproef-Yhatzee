@@ -1,15 +1,15 @@
 <?php
 
 // Start een nieuw spel (standaard 1 speler als er niks wordt meegegeven)
-function newGame(array|int $speler = ['speler 1'])
+function newGame(array $spelers = ['speler 1'])
 {
-    if(is_int($speler)){
-        $aantal = $speler;
-        $speler = [];
-        for($i = 0; $i < $aantal; $i++){
-            $speler[] = 'speler'.$i;
-        }
-    }
+    // if(is_int($spelers)){
+    //     $aantal = $spelers;
+    //     $spelers = [];
+    //     for($i = 0; $i < $aantal; $i++){
+    //         $spelers[] = 'speler'.$i;
+    //     }
+    // }
     // Blanco scorekaart-sjabloon
     $legeCat = [
         'ones' => null,
@@ -29,7 +29,7 @@ function newGame(array|int $speler = ['speler 1'])
 
     // Kent aan de index (stoelnummer) van elke speler een eigen lege scorekaart toe
     $scores = [];
-    foreach($speler as $index => $naam){
+    foreach($spelers as $index => $naam){
         $scores[$index] = $legeCat;
     }
 
@@ -40,8 +40,8 @@ function newGame(array|int $speler = ['speler 1'])
         'dobbelstenen'  => [1, 1, 1, 1, 1],
         'vasthouden'    => [false, false, false, false, false],
         'actieveSpeler' => 0, // Index van de speler die aan de beurt is
-        'speler'        => $speler,
+        'spelers'        => $spelers,
         'scores'        => $scores,
-        'instel_stap'   => 'spel_bezig'
+        'instel_stap'   => 'start'
     ];
 }

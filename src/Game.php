@@ -3,7 +3,7 @@
 function resetSpel(){
     $actieveSpelers = $_SESSION['game']['speler'] ?? ['speler 1'];
     unset($_SESSION['game']); // unset zorgt ervoor om dew sessie helmaal leeg gooit
-    $_SESSION['game'] = newGame($actieveSpelers);
+    $_SESSION['game'] = newGame(['speler 1']);
 }
 
 // Zorgt ervoor dat er altijd een spel klaar staat
