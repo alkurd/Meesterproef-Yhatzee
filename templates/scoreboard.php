@@ -4,8 +4,6 @@
         <!-- Tabelkop met de kolomnamen -->
         <thead>
             <tr><?php 
-            $spelerIndex = $_SESSION['game']['actieveSpeler'];
-            $_SESSION['game']['score'][$spelerIndex] = $spelerIndex;
             $spelers = $_SESSION['game']['spelers'];?>
             <th>Categorie</th>
             <?php foreach($spelers as $index => $spelerNaam): ?>
@@ -16,31 +14,34 @@
         </thead>
         
         <tbody>
-            <!-- Loopt door alle categorieën: $sleutel is de PHP-code (bijv. 'ones') en $naam is de nette tekst (bijv. 'Enen') -->
-            
-            <?php foreach($categorieen as $sleutel => $naam): 
-                $activeSpelers = $_SESSION['game']['activespler'] ?? 0?>
-            <tr>
-                <!-- Toont de nette categorienaam -->
-                <td><?=$naam?></td>
+            <?php foreach($categorieen as $catIndex => $catName): ?>
+                <tr>
+                    <td><?= $catName ?></td>
+                    <?php foreach($_SESSION['game']['spelers'] as $spelerIndex => $spelerNaam):?>
+                        <td>
+                        <?php $score = $_SESSION['game']['scores'][$spelerIndex][$catIndex] ?? null;
+                        echo($score !== null) ? htmlspecialchars($score):'-';?>
+                        </td>
+                    <?php endforeach?>
 
-                <!-- Toont de behaalde score uit de sessie, of een '-' als deze nog leeg is -->
-                 <?php foreach ($spelers as $key => $value): ?>
-                    
-                <td> <?= $_SESSION['game']['scores'][$sleutel] ?? '-' ?> 
-            </td>
-                <?php endforeach;?>
-                <td>
-                    <!-- Toont de knop ALLEEN als deze categorie nog niet is ingevuld (waarde is null) -->
-                    <?php if(($_SESSION['game']['scores'][$activeSpelers][$sleutel]?? null) === null):?>
-                        <form action="index.php" method="POST" >
-                            <!-- Stuurt de sleutel van de gekozen categorie mee naar de server -->
-                            <button name="kies_categorie" type="submit" value="<?=$sleutel?>">Kies</button>
+                    <td>
+                    <?php 
+                    $actieveSpeler = $_SESSION['game']['actieveSpeler'] ?? 0;
+                    $reedsIngevuld = isset($_SESSION['game']['scores'][$actieveSpeler][$catIndex]);
+                    $heeftGegooid   = ($_SESSION['game']['beurt'] ?? 0) > 0;
+                    ?>
+
+                    <?php if (!$reedsIngevuld && $heeftGegooid): ?>
+                        <form method="POST" action="index.php" style="margin: 0;">
+                            <input type="hidden" name="categorie" value="<?= htmlspecialchars($catIndex) ?>">
+                            <button type="submit" name="kies_categorie">Kies</button>
                         </form>
-                    <?php endif?>
+                    <?php else: ?>
+                        <button disabled>Kiez</button>
+                    <?php endif; ?>
                 </td>
-            </tr>
-            <?php endforeach?>
+                </tr>
+                <?php endforeach?>
         </tbody>
     </table>
 </div>
