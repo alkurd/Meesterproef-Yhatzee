@@ -56,12 +56,91 @@ function berekenScore($categorie, $dobbelStenen)
         default: return 0;
     }
 }
-function berekenBovensteTotaal($spelerIndex){
 
-}
-function berekenBonus($spelerIndex){
+/**
+ * Controleert of de speler alle 6 categorieën van het bovenste deel heeft ingevuld.
+ */
+function isBovenKlaar(int $spelerIndex): bool 
+{
+    $scores = $_SESSION['game']['scores'][$spelerIndex] ?? [];
+    $bovenCat = ['ones', 'twos', 'threes', 'fours', 'fives', 'sixes'];
 
+    foreach ($bovenCat as $key) {
+        // Als een van de categorieën nog ontbreekt of null is, is de bovenkant nog niet klaar
+        if (!array_key_exists($key, $scores) || $scores[$key] === null) {
+            return false;
+        }
+    }
+
+    return true;
 }
-function berekenEindScore($spelerIndex){
-    
+
+/**
+ * Berekent de som van het bovenste deel (1 t/m 6).
+ * Geef '-' terug als het bovenste deel nog niet volledig is ingevuld.
+ */
+function berekenBoven(int $spelerIndex) 
+{
+    if (!isBovenKlaar($spelerIndex)) {
+        return '-';
+    }
+
+    $scores = $_SESSION['game']['scores'][$spelerIndex] ?? [];
+    $bovenCat = ['ones', 'twos', 'threes', 'fours', 'fives', 'sixes'];
+    $subtotal = 0;
+
+    foreach ($bovenCat as $key) {
+        if (isset($scores[$key]) && $scores[$key] !== null) {
+            $subtotal += $scores[$key];
+        }
+    }
+
+    return $subtotal;
+}
+
+/**
+ * Berekent de bonus van 35 punten als het subtotaal van de bovenkant >= 63 is.
+ */
+function berekenBonus(int $spelerIndex) 
+{
+    $subtotaal = berekenBoven($spelerIndex);
+
+    if ($subtotaal === '-') {
+        return '-';
+    }
+
+    // AANGEPAST: Yahtzee bonus is 35 punten bij 63 punten of meer (niet 65!)
+    return ($subtotaal >= 63) ? 35 : 0;
+}
+
+/**
+ * Berekent de totale eindscore (Bovenste deel + Bonus + Onderste deel).
+ */
+function berekenEindScore(int $spelerIndex): int 
+{
+    $scores = $_SESSION['game']['scores'][$spelerIndex] ?? [];
+
+    // 1. Bovenste deel ophalen (als het nog '-' is, telt het als 0 punten)
+    $bovenVal = berekenBoven($spelerIndex);
+    $bovenScore = ($bovenVal === '-') ? 0 : (int)$bovenVal;
+
+    // 2. Bonus ophalen (als het nog '-' is, telt het als 0 punten)
+    $bonusVal = berekenBonus($spelerIndex);
+    $bonusScore = ($bonusVal === '-') ? 0 : (int)$bonusVal;
+
+    // 3. Onderste deel optellen
+    $ondersteCat = [
+        'three_kind', 'four_kind', 'full_house', 
+        'small_straight', 'large_straight', 'chance', 'yahtzee'
+    ];
+
+    $totalOnder = 0;
+    foreach ($ondersteCat as $key) {
+        if (isset($scores[$key]) && $scores[$key] !== null) {
+            $totalOnder += $scores[$key];
+        }
+    }
+
+    // 4. Eindtotaal berekenen
+    return $bovenScore + $bonusScore + $totalOnder;
 }

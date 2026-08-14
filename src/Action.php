@@ -43,6 +43,12 @@ function verwerkActie()
         if ($activeSpeler >= $totalSpelers) {
             $_SESSION['game']['ronde']++; // Start de volgende ronde
             $activeSpeler = 0;             // Reset naar de eerste speler (index 0)
+
+            // CHECK OP SPEL-EINDE: Er zijn 13 categorieën, dus max 13 rondes
+            if ($_SESSION['game']['ronde'] > 13) {
+                $_SESSION['game']['instel_stap'] = 'eind';
+                $_SESSION['game']['melding'] = "Het spel is afgelopen!";
+            }
         }
 
         // 6. Sla de nieuwe actieve speler op in de sessie.

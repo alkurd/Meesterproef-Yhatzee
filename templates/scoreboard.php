@@ -54,5 +54,6 @@
                 </tr>
                 <?php endforeach?>
         </tbody>
+        <?php require_once 'Tfooter.php'; ?>
     </table>
 </div>
