@@ -9,7 +9,8 @@
 </head>
 <body>
     <!--  wordt gebruikt om de pagina overzigtelijk te houden -->
-    <?php require_once __DIR__.'/../templates/Errors.php';?>  
+    <?php require_once __DIR__.'/../templates/Errors.php';
+    require_once __DIR__.'/../templates/felicitatie.php';?>  
     <h1>Yahtzee</h1>
     <!-- header -->
     <div class="spel-info">
@@ -25,6 +26,7 @@
     <form action="index.php" method="POST" class="reset-spel">
         <button name="reset" type="submit">Nieuwe Spel</button> <!--  Wrdt de actie geroeppen door name te geven -->
     </form>
+
 
     
 </body>

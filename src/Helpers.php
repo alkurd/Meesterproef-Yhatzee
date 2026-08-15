@@ -28,7 +28,7 @@ function newGame(array $spelers = ['speler 1'])
 
     return [
         'melding'       => "",
-        'ronde'         => 1,
+        'ronde'         => 0,
         'beurt'         => 0,
         'dobbelstenen'  => [1, 1, 1, 1, 1],
         'vasthouden'    => [false, false, false, false, false],

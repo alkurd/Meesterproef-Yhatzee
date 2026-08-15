@@ -1,6 +1,6 @@
 <?php 
 $instelStap = $_SESSION['game']['instel_stap'] ?? null;
-$isStartVanSpel = ($_SESSION['game']['ronde'] === 1 && $_SESSION['game']['beurt'] === 0);
+$isStartVanSpel = ($_SESSION['game']['ronde'] === 0 && $_SESSION['game']['beurt'] === 0);
 ?>
 <?php if ($instelStap === 'start' && $isStartVanSpel): ?>
     <form method="POST" action="index.php">
@@ -30,4 +30,23 @@ $isStartVanSpel = ($_SESSION['game']['ronde'] === 1 && $_SESSION['game']['beurt'
         
         <button type="submit" name="start-met-namen">Start Spel</button>
     </form>
+
+<?php 
+elseif ($instelStap === 'naam_vragen'): ?>
+    <!-- Pop-up of invoerveld voor de naam -->
+    <div class="popup-modal">
+        <div class="popup-overlay" id="naamGeven-overlay">
+            <div class="popup-box naamGeven-card">
+                <form method="POST" action="index.php">
+                    <h3>Vul je naam in om te beginnen:</h3>
+                    <!-- <label for="speler">Naam:</label> -->
+                    <input id="speler" name="speler-naam[]" type="text" value="Speler 1" required autofocus>
+                    
+                    <button type="submit" name="start-met-namen">Start Spel</button>
+                </form>
+            </div>
+        </div>
+    </div>
 <?php endif; ?>
+
+

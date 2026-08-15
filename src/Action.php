@@ -5,9 +5,21 @@ function verwerkActie()
     // De 'poortwachter' die controleert of er een knop is ingedrukt (en de pagina niet zomaar los geopend is).
     if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {    
         // Regelt het opnieuw rollen van de dobbelstenen. 
-        if(isset($_POST['gooi'])){
+        if (isset($_POST['gooi'])) {
+        $ronde = $_SESSION['game']['ronde'] ?? 1;
+        // $beurt = $_SESSION['game']['beurt'] ?? 0;
+
+        // Als het de állereerste worp is, vragen we eerst de naam
+        if ($ronde === 0) {
+            $_SESSION['game']['instel_stap'] = 'naam_vragen';
+        } else {
+            // Normaliter: gooi de dobbelstenen
             verWerkGooi();
         }
+
+        header("Location: index.php");
+        exit;
+    }
 
     // Beheert welke dobbelstenen bewaard moeten blijven bij een volgende worp.
     if(isset($_POST['wissel_vast'])){
@@ -84,6 +96,7 @@ function verwerkActie()
         $nieuweSpelers = $_POST['speler-naam'] ?? ['Speler 1', 'Speler 2'];
         
         $_SESSION['game'] = newGame($nieuweSpelers);
+        $_SESSION['game']['ronde'] = 1;
         $_SESSION['game']['instel_stap'] = 'spel_bezig';
 
     }

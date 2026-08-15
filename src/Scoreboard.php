@@ -144,3 +144,27 @@ function berekenEindScore(int $spelerIndex): int
     // 4. Eindtotaal berekenen
     return $bovenScore + $bonusScore + $totalOnder;
 }
+
+function bepaalWinnaar(){
+    if(($_SESSION['game']['instel_stap'] ?? '') !== 'eind'){
+        return false;
+    }
+
+    $alleScore = [];
+    foreach($_SESSION['game']['spelers'] as $index => $naam){
+        $alleScore[$naam] = berekenEindScore($index);
+    }
+    // max($alleScore);
+    
+
+    $winnaarScore = max($alleScore);
+    $winnaarNaam = array_search($winnaarScore,$alleScore);
+    
+
+    return
+    [
+        'winnaarNaam'  => $winnaarNaam,
+        'winnaarScore' => $winnaarScore,
+        'alleScore'    => $alleScore
+    ];
+}
