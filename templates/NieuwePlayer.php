@@ -32,16 +32,16 @@ $isStartVanSpel = ($_SESSION['game']['ronde'] === 0 && $_SESSION['game']['beurt'
     </form>
 
 <?php 
+// nieuwe toegevoegd om de solo speler naam te geven. Noot: het is verplicht om een naam te krijgen.
 elseif ($instelStap === 'naam_vragen'): ?>
     <!-- Pop-up of invoerveld voor de naam -->
+     <!-- Gebruik de al bestaande overlay  class van de Errors-->
     <div class="popup-modal">
         <div class="popup-overlay" id="naamGeven-overlay">
             <div class="popup-box naamGeven-card">
                 <form method="POST" action="index.php">
                     <h3>Vul je naam in om te beginnen:</h3>
-                    <!-- <label for="speler">Naam:</label> -->
                     <input id="speler" name="speler-naam[]" type="text" value="Speler 1" required autofocus>
-                    
                     <button type="submit" name="start-met-namen">Start Spel</button>
                 </form>
             </div>
