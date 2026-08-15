@@ -28,12 +28,16 @@ $aantalspelers = count($_SESSION['game']['spelers']);
                 <span> Met <?= $eindScore['winnaarScore'] ?> punten</span>
             </p>
             <?php endif?>
+            <!-- Score overzicht -->
             <div class="score-overzicht">
                 <h4>Eindstand:</h4>
                 <ul>
+                    <!-- loop door alle score en toon ze in een ongeordend lijst -->
                     <?php foreach ($eindScore['alleScore'] as $naam => $score): ?>
                         <li>
+                            <!-- Toont naam -->
                             <span><?= htmlspecialchars($naam) ?></span>
+                            <!-- Toont score -->
                             <strong><?= $score ?> pt</strong>
                         </li>
                     <?php endforeach; ?>
@@ -44,7 +48,6 @@ $aantalspelers = count($_SESSION['game']['spelers']);
                     🎮 Nieuw Spel Starten
                 </button>
             </form>
-
         </div>
     </div>
 </div>

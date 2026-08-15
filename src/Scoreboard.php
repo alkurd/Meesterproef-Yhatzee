@@ -146,18 +146,21 @@ function berekenEindScore(int $spelerIndex): int
 }
 
 function bepaalWinnaar(){
+    // Als de spel nog niet klaar doe niks
     if(($_SESSION['game']['instel_stap'] ?? '') !== 'eind'){
         return false;
     }
 
+    // Een lege lijst om alle einde score in te stopen 
     $alleScore = [];
+    // hier stop je de score in de lijst
     foreach($_SESSION['game']['spelers'] as $index => $naam){
         $alleScore[$naam] = berekenEindScore($index);
     }
-    // max($alleScore);
     
-
+    // Geef de hoogste score
     $winnaarScore = max($alleScore);
+    // Zoek de naam die bij de hoogste score hoort
     $winnaarNaam = array_search($winnaarScore,$alleScore);
     
 
